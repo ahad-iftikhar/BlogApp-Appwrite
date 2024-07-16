@@ -1,9 +1,13 @@
 import React, { useCallback, useEffect, useState } from "react";
+import { Query } from "appwrite";
 import { Container, Input, PostCard } from "../inedx";
 import service from "../../appwrite/config";
 import Pagination from "../Pagination";
+import { useSelector } from "react-redux";
 
 const AllPosts = () => {
+  const userData = useSelector((state) => state.userData);
+
   const [posts, setPosts] = useState([]);
   const [searchValue, setSearchValue] = useState("");
   const [searchPosts, setSearchPosts] = useState([]);
@@ -12,15 +16,17 @@ const AllPosts = () => {
   const PAGESIZE = 12;
 
   useEffect(() => {
-    service.getPosts([]).then((posts) => {
-      if (posts) {
-        setPosts(posts.documents);
-        setSearchPosts(posts.documents);
-        if (pagedPosts.length === 0) {
-          setPagedPosts(getPagedData(posts.documents));
+    service
+      .getPosts([Query.equal("userId", `${userData.$id}`)])
+      .then((posts) => {
+        if (posts) {
+          setPosts(posts.documents);
+          setSearchPosts(posts.documents);
+          if (pagedPosts.length === 0) {
+            setPagedPosts(getPagedData(posts.documents));
+          }
         }
-      }
-    });
+      });
   }, []);
 
   useEffect(() => {
