@@ -1,8 +1,9 @@
-#Blog App using Appwrite
+# Blog App using Appwrite
 
 This is a Blog app created using React.js, Redux-toolkit for state management, React-forms, TinyMCE for real time editor, Tailwind CSS and Appwrite(Backend as a service).
 
-##Key Features:
+## Key Features:
+
 1- User can signup and login with complete authentication.
 <br>
 2- User can create, read, update and delete posts once loggedin.
